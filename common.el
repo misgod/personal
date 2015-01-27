@@ -14,7 +14,7 @@
 
 
 (prelude-require-package 'rainbow-delimiters)
-(global-rainbow-delimiters-mode)
+;;(global-rainbow-delimiters-mode)
 
 
 
