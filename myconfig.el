@@ -1,7 +1,13 @@
-(disable-theme 'zenburn)
+;;(disable-theme 'zenburn)
 
-(prelude-require-package 'solarized-theme)
-(load-theme 'solarized-dark t)
+
+
+;;(set-frame-parameter nil 'background-mode 'dark)
+;;(load-theme 'solarized t)
+;; (prelude-require-package 'color-theme-solarized)
+;; (load-theme 'solarized-dark t)
+
+
 
 (setq x-underline-at-descent-line t)
 
@@ -51,4 +57,3 @@
 
 ;;; disable ctrl-space for Chinese Input
 ;;(global-unset-key [\?C- ])
-
