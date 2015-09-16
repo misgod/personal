@@ -6,7 +6,7 @@
 (global-git-gutter-mode +1)
 
 ;;w3m
-(prelude-require-package 'w3m)
+;;(prelude-require-package 'w3m)
 
 (prelude-require-package 'jade-mode)
 

@@ -1,7 +1,7 @@
-(disable-theme 'zenburn)
+;;;(disable-theme 'zenburn)
 
-(prelude-require-package 'solarized-theme)
-(load-theme 'solarized-dark t)
+;;;(prelude-require-package 'solarized-theme)
+;;;(load-theme 'solarized-dark t)
 
 (setq x-underline-at-descent-line t)
 
@@ -31,7 +31,9 @@
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
 ;;;
-(global-set-key [C-tab] 'bs-show)
+(global-set-key  (kbd "C-x <down>") 'bs-show)
+(global-set-key  (kbd "C-x <up>") 'ibuffer)
+
 ;;; also diable C-tab in org mode
 (add-hook 'org-mode-hook
           '(lambda ()
@@ -52,3 +54,5 @@
 ;;; disable ctrl-space for Chinese Input
 ;;(global-unset-key [\?C- ])
 
+
+(setq cider-show-error-buffer nil)
