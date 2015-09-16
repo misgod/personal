@@ -54,5 +54,5 @@
 ;;; disable ctrl-space for Chinese Input
 ;;(global-unset-key [\?C- ])
 
-
+;;; for clojure
 (setq cider-show-error-buffer nil)

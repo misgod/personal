@@ -1,38 +1,36 @@
-; Enable Windows-like bindings
-(cua-mode 1)
+;;; haskell.el
 
-; Make Emacs look in Cabal directory for binaries
-(let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
-  (setenv "PATH" (concat my-cabal-path ":" (getenv "PATH")))
-  (add-to-list 'exec-path my-cabal-path))
+;;; Code:
 
-; HASKELL-MODE
-; ------------
+(prelude-require-package 'hi2)
+(add-hook 'haskell-mode-hook 'turn-on-hi2)
 
-; Choose indentation mode
-;; Use haskell-mode indentation
-(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-;; Use hi2
-;(prelude-require-package 'hi2)
-;(add-hook 'haskell-mode-hook 'turn-on-hi2)
-;; Use structured-haskell-mode
-;(add-hook 'haskell-mode-hook 'structured-haskell-mode)
+;;(add-hook 'after-init-hook #'global-flycheck-mode)
 
-; Add F8 key combination for going to imports block
-(eval-after-load 'haskell-mode
-  '(define-key haskell-mode-map [f8] 'haskell-navigate-imports))
+(prelude-require-package 'flycheck-haskell)
+;;(add-hook 'haskell-mode-hook 'flycheck-mode)
+;;(eval-after-load 'flycheck 
+;;                (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
+
+
+(defun haskell/init-flycheck ()
+    (add-hook 'haskell-mode-hook 'flycheck-mode)
+      )
+
+(defun haskell/init-flycheck-haskell ()
+     (add-hook 'flycheck-mode-hook 'flycheck-haskell-setup)
+        )
+
+(prelude-require-package 'hindent)
+(add-hook 'haskell-mode-hook #'hindent-mode)
+
+
 
 (custom-set-variables
- ; Set up hasktags (part 2)
- '(haskell-tags-on-save t)
- ; Set up interactive mode (part 2)
- '(haskell-process-auto-import-loaded-modules t)
- '(haskell-process-log t)
- '(haskell-process-suggest-remove-import-lines t)
- ; Set interpreter to be "cabal repl"
- '(haskell-process-type 'cabal-repl))
-
-; Add key combinations for interactive haskell-mode
+  '(haskell-process-type 'cabal-repl)
+  '(haskell-process-suggest-remove-import-lines t)
+  '(haskell-process-auto-import-loaded-modules t)
+  '(haskell-process-log t))
 (eval-after-load 'haskell-mode '(progn
   (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
   (define-key haskell-mode-map (kbd "C-c C-z") 'haskell-interactive-switch)
@@ -47,27 +45,12 @@
   (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
   (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)))
 
+
 (eval-after-load 'haskell-mode
   '(define-key haskell-mode-map (kbd "C-c C-o") 'haskell-compile))
 (eval-after-load 'haskell-cabal
   '(define-key haskell-cabal-mode-map (kbd "C-c C-o") 'haskell-compile))
-  
-; GHC-MOD
-; -------
 
-(autoload 'ghc-init "ghc" nil t)
-(autoload 'ghc-debug "ghc" nil t)
-(add-hook 'haskell-mode-hook (lambda () (ghc-init)))
 
-; COMPANY-GHC
-; -----------
 
-; Enable company-mode
-(prelude-require-package 'company)
-; Use company in Haskell buffers
-; (add-hook 'haskell-mode-hook 'company-mode)
-; Use company in all buffers
-(add-hook 'after-init-hook 'global-company-mode)
-
-(add-to-list 'company-backends 'company-ghc)
-(custom-set-variables '(company-ghc-show-info t))
+;;; haskell.el ends here
